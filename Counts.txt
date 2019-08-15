@@ -1,0 +1,7 @@
+word: good        count: 2
+word: because        count: 3
+word: like        count: 2
+word: very        count: 2
+word: something        count: 2
+word: you        count: 2
+word: get        count: 2
