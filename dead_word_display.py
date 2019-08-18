@@ -18,7 +18,6 @@ with open("StartWords.txt") as starts:
     for line in starts:
         startwordlist = line.split(" ")
 startwordlist = process_list(startwordlist)
-print(startwordlist)
 """
 deadwordlist = None
 linkverblist = None
