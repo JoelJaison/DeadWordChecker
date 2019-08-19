@@ -39,11 +39,11 @@ for paragraph in paragraphs:
         parlist.append(paragraph)
 for index in range(len(parlist)):
     for deadword in deadwordlist:
-        parlist[index] = parlist[index].replace(deadword, "<span style='background-color:yellow'>%s</span>" % deadword)  
+        parlist[index] = parlist[index].replace(" "+deadword+" ", "<span style='background-color:yellow'>%s</span>" % (" "+deadword+" "))  
     for linkverb in linkverblist:
-        parlist[index] = parlist[index].replace(linkverb, "<span style='background-color:yellow'>%s</span>" % linkverb)
+        parlist[index] = parlist[index].replace(" "+linkverb+" ", "<span style='background-color:yellow'>%s</span>" % (" "+linkverb+" "))
     for startword in startwordlist:
-        parlist[index] = parlist[index].replace(startword, "<span style = 'background-color:yellow'>%s</span>" % startword)
+        parlist[index] = parlist[index].replace(" "+startword+" ", "<span style = 'background-color:yellow'>%s</span>" % (" "+startword+" "))
 with open("WordChecker.html","w") as file:
     for paragraph in parlist:
         file.write("<p>%s</p>\n" % paragraph)
