@@ -23,11 +23,12 @@ parlist = list()
 for paragraph in paragraphs:
     if(re.search('[a-zA-Z]', paragraph)):
         parlist.append(paragraph)
+deadwordlist[0] = "about how"
 for index in range(len(parlist)):
     for deadword in deadwordlist:
-        parlist[index] = parlist[index].replace(" "+deadword+" ", "<span style='background-color:yellow'>%s</span>" % (" "+deadword+" "))  
-
+        parlist[index] = parlist[index].replace(" "+deadword+" ", " <span style='background-color:yellow'>%s</span> " % (" "+deadword+" "))  
+    
 with open("WordChecker.html","w") as file:
     for paragraph in parlist:
-        file.write("<p>%s</p>\n" % paragraph)
+        file.write("<p style = 'line-height:2;text-indent:50px;'>%s</p>\n" % paragraph)
 os.system("google-chrome WordChecker.html")
