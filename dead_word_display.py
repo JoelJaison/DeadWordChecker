@@ -1,6 +1,7 @@
 import re
 import os
-from processlist import process_list
+from processlist import *
+from dead_word_counter import counter
 """
 
 Will split the text file into paragraphs, replace dead words with appropriate html tags,
@@ -27,8 +28,15 @@ deadwordlist[0] = "about how"
 for index in range(len(parlist)):
     for deadword in deadwordlist:
         parlist[index] = parlist[index].replace(" "+deadword+" ", " <span style='background-color:yellow'>%s</span> " % (" "+deadword+" "))  
-    
+        parlist[index] = parlist[index].replace(" "+deadword+".", " <span style='background-color:yellow'>%s</span> " % (" "+deadword+"."))  
+
 with open("WordChecker.html","w") as file:
+    countstring = counter(textfile)
+    total = (sum(countstring[1].values()))
+    countlist = countstring[0].split("\n")
+    countlist.append("Total dead words: %d" % (total))
     for paragraph in parlist:
         file.write("<p style = 'line-height:2;text-indent:50px;'>%s</p>\n" % paragraph)
+    for string in countlist:
+        file.write("<p style = 'line-height:2;text-indent:50px;'>%s</p>\n" % string)
 os.system("google-chrome WordChecker.html")
