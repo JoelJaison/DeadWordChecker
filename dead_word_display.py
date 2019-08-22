@@ -25,11 +25,14 @@ for paragraph in paragraphs:
     if(re.search('[a-zA-Z]', paragraph)):
         parlist.append(paragraph)
 deadwordlist[0] = "about how"
+punctlist = list("!.,?")
+punctlist.insert(0," ")
 for index in range(len(parlist)):
     for deadword in deadwordlist:
-        parlist[index] = parlist[index].replace(" "+deadword+" ", " <span style='background-color:yellow'>%s</span> " % (deadword))  
-        parlist[index] = parlist[index].replace(" "+deadword+".", " <span style='background-color:yellow'>%s</span>. " % (deadword))  
-        parlist[index] = parlist[index].replace(" "+deadword+",", " <span style='background-color:yellow'>%s</span>, " %(deadword))
+        for punct in punctlist:
+            parlist[index] = parlist[index].replace(" "+deadword+"%s" % (punct), " <span style='background-color:yellow'>%s</span>%s" % (deadword, punct))  
+        #parlist[index] = parlist[index].replace(" "+deadword+".", " <span style='background-color:yellow'>%s</span>. " % (deadword))  
+        #parlist[index] = parlist[index].replace(" "+deadword+",", " <span style='background-color:yellow'>%s</span>, " %(deadword))
 with open("WordChecker.html","w") as file:
     countstring = counter(textfile)
     total = (sum(countstring[1].values()))
