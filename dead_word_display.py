@@ -29,7 +29,7 @@ for index in range(len(parlist)):
     for deadword in deadwordlist:
         parlist[index] = parlist[index].replace(" "+deadword+" ", " <span style='background-color:yellow'>%s</span> " % (deadword))  
         parlist[index] = parlist[index].replace(" "+deadword+".", " <span style='background-color:yellow'>%s</span>. " % (deadword))  
-
+        parlist[index] = parlist[index].replace(" "+deadword+",", " <span style='background-color:yellow'>%s</span>, " %(deadword))
 with open("WordChecker.html","w") as file:
     countstring = counter(textfile)
     total = (sum(countstring[1].values()))

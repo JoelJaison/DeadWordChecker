@@ -28,12 +28,10 @@ def counter(filename):
         newpunct = list(string.punctuation)
         newpunct.remove("'")
         newpunct = "".join(newpunct)
-
         for line in langessay:
             line = line.rstrip()
             linelist.append(line.translate(str.maketrans(newpunct, len(newpunct)*",")).replace(",",""))
-    finalstring = " ".join(linelist).lower()
-
+    finalstring = " ".join(linelist)
     deadcountlist = process_string(deadwordlist, finalstring)
     return [dict_to_string(deadcountlist), deadcountlist]
     
