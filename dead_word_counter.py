@@ -35,18 +35,5 @@ def counter(filename):
     deadcountlist = process_string(deadwordlist, finalstring)
     return [dict_to_string(deadcountlist), deadcountlist]
     
-"""
-with open("Counts.txt", "w+") as countfile:
-    countfile.write(countstring)
-    msg = EmailMessage()
-    msg.set_content(countfile.read())
-msg['Subject'] = "Lang Essay Word Count"
-msg['From'] = "joeljaison13@gmail.com"
-msg['To'] = "joeljaison13@gmail.com"
-s = smtplib.SMTP('localhost')
-s.send_message(msg)
-s.quit()
-"""
 
-    
 
