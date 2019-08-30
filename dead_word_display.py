@@ -11,28 +11,32 @@ with an html file containing the number of counts of each word
 """
 
 textfile = input("Enter File Name")
+
 with open(textfile+".txt") as langessay:
     data = langessay.read()
+
 deadwordlist = None
+
 with open("DeadWordList.txt") as dwords:
     for line in dwords:
         deadwordlist = line.split(" ")
+
 deadwordlist = process_list(deadwordlist)
 
 paragraphs = data.split("\n")
 parlist = list()
+
 for paragraph in paragraphs:
     if(re.search('[a-zA-Z]', paragraph)):
         parlist.append(paragraph)
+
 deadwordlist[0] = "about how"
-punctlist = list("!.,?")
-punctlist.insert(0," ")
+
+
 for index in range(len(parlist)):
     for deadword in deadwordlist:
-        for punct in punctlist:
-            parlist[index] = parlist[index].replace(" "+deadword+"%s" % (punct), " <span style='background-color:yellow'>%s</span>%s" % (deadword, punct))  
-        #parlist[index] = parlist[index].replace(" "+deadword+".", " <span style='background-color:yellow'>%s</span>. " % (deadword))  
-        #parlist[index] = parlist[index].replace(" "+deadword+",", " <span style='background-color:yellow'>%s</span>, " %(deadword))
+        parlist[index] = re.sub("\\b%s\\b" % deadword, "<span style='background-color:yellow'>%s</span>" % (deadword), parlist[index])  
+
 with open("WordChecker.html","w") as file:
     countstring = counter(textfile)
     total = (sum(countstring[1].values()))
@@ -42,4 +46,5 @@ with open("WordChecker.html","w") as file:
         file.write("<p style = 'line-height:2;text-indent:50px;'>%s</p>\n" % paragraph)
     for string in countlist:
         file.write("<p style = 'line-height:2;text-indent:50px;'>%s</p>\n" % string)
+
 os.system("google-chrome WordChecker.html")
