@@ -65,7 +65,6 @@ for index in range(len(parlist)):
         else:
             parlist[index] = re.sub("\\b%s\\b" % deadword, "<span style='background-color:yellow'>%s</span>" % (deadword), parlist[index])
             countdict[deadword] = countdict.get(deadword, 0) + 1  
-print(countdict['is'])
 with open("WordChecker.html","w") as file:
     countstring = counter(textfile)
     total = (sum(countstring[1].values()))
