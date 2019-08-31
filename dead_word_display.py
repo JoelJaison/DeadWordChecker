@@ -12,7 +12,7 @@ with an html file containing the number of counts of each word
 """
 
 textfile = input("Enter File Name")
-
+countdict = dict()
 with open(textfile+".txt", mode = 'r', encoding = 'utf-8-sig') as langessay:
     data = langessay.read()
 
@@ -37,7 +37,7 @@ for paragraph in paragraphs:
 for index in range(len(parlist)):
     text = word_tokenize(parlist[index])
     patterns = [\
-    ("(is|was|were|are)", "lverb"), \
+    ("\\b(is|was|were|are)\\b", "lverb"), \
     ('\\b.+ing\\b', "GER")\
     ]
     regexp_tagger = RegexpTagger(patterns)
@@ -56,15 +56,16 @@ for index in range(len(parlist)):
                 if speechparts[(speechparts.index((deadword, 'lverb')))+1][1] != 'GER':
                     parlist[index] = parlist[index][:matchlist[i].start()] + ("<span style='\
                     background-color:yellow'>%s</span>" % (deadword)) + parlist[index][matchlist[i].end():]
-                    
+                    countdict[deadword] = countdict.get(deadword, 0) + 1
                 speechparts.remove((deadword, 'lverb'))
                 i += 1
         
         
         
         else:
-            parlist[index] = re.sub("\\b%s\\b" % deadword, "<span style='background-color:yellow'>%s</span>" % (deadword), parlist[index])  
-
+            parlist[index] = re.sub("\\b%s\\b" % deadword, "<span style='background-color:yellow'>%s</span>" % (deadword), parlist[index])
+            countdict[deadword] = countdict.get(deadword, 0) + 1  
+print(countdict['is'])
 with open("WordChecker.html","w") as file:
     countstring = counter(textfile)
     total = (sum(countstring[1].values()))
