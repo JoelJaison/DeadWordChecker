@@ -5,5 +5,6 @@ def process_string(wordlist, finalstring):
             templist = re.findall("\\b%s\\b" % word, finalstring)
             if len(templist)>0:
                     worddict[word] = len(templist)
+   
 
     return worddict
