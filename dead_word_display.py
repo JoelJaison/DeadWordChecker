@@ -1,7 +1,6 @@
 import re
 import os
 from processlist import *
-from dead_word_counter import counter
 from nltk import *
 """
 
@@ -64,16 +63,14 @@ for index in range(len(parlist)):
         
         else:
             parlist[index] = re.sub("\\b%s\\b" % deadword, "<span style='background-color:yellow'>%s</span>" % (deadword), parlist[index])
-            countdict[deadword] = countdict.get(deadword, 0) + 1  
-print(countdict['is'])
+            countdict[deadword] = countdict.get(deadword, 0) + len(re.findall('\\b%s\\b' % deadword, parlist[index]))  
+            
 with open("WordChecker.html","w") as file:
-    countstring = counter(textfile)
-    total = (sum(countstring[1].values()))
-    countlist = countstring[0].split("\n")
-    countlist.append("Total dead words: %d" % (total))
+    total = (sum(countdict.values()))
     for paragraph in parlist:
         file.write("<p style = 'line-height:2;text-indent:50px;'>%s</p>\n" % paragraph)
-    for string in countlist:
-        file.write("<p style = 'line-height:2;text-indent:50px;'>%s</p>\n" % string)
-
+    for key in countdict:
+        if not countdict[key] == 0:
+            file.write("<p style = 'line-height:2;text-indent:50px;'>dead word: %s; count: %d</p>\n" % (key, countdict[key]))
+    file.write("<p style = 'line-height:2;text-indent:50px;'>total dead word: %d</p>\n" % total)
 os.system("google-chrome WordChecker.html")
