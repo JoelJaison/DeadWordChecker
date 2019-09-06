@@ -1,6 +1,5 @@
 import re
 import os
-from processlist import *
 from nltk import *
 """
 
@@ -9,6 +8,11 @@ and write the contents into an html file which will be displayed in Google Chrom
 with an html file containing the number of counts of each word
 
 """
+def process_list(list):
+    for i in range(len(list)):
+        if "-" in list[i]:
+            list[i] = list[i].replace("-", " ")
+    return list
 
 textfile = input("Enter File Name")
 countdict = dict()
@@ -72,5 +76,5 @@ with open("WordChecker.html","w") as file:
     for key in countdict:
         if not countdict[key] == 0:
             file.write("<p style = 'line-height:2;text-indent:50px;'>dead word: %s; count: %d</p>\n" % (key, countdict[key]))
-    file.write("<p style = 'line-height:2;text-indent:50px;'>total dead word: %d</p>\n" % total)
+    file.write("<p style = 'line-height:2;text-indent:50px;'>total dead words: %d</p>\n" % total)
 os.system("google-chrome WordChecker.html")
