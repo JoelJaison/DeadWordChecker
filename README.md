@@ -1,6 +1,6 @@
 # DeadWordChecker
 ## How to Use:
-* Clone this repo
+* Download or clone this repo
 * Execute the command cd DeadWordChecker on your terminal 
 * Make sure the version of Python you have is 3.4 or greater
 * Run "sudo apt install python3-pip" to install pip package manager
